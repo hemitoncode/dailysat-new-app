@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="/public/logo/dailysat.png" width="20%" alt="DailySAT" />
+  <img src="/public/dailysat.png" width="20%" alt="DailySAT" />
 </div>
 <hr>
 <div align="center" style="line-height: 1;">
