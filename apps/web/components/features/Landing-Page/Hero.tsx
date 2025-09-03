@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import ArrowSvg from '@/components/common/icons/ArrowSVG';
 import Link from 'next/link';
 import { Button } from '@/components/common/Button';
@@ -44,24 +44,25 @@ const Hero = () => {
       side: 'left',
     }
   ];
+
   const [index, setIndex] = useState(0);
   const [showMask, setShowMask] = useState(false);
 
   useEffect(() => {
-    const interval = setInterval(
-      () => setIndex((i) => (i + 1) % slides.length),
-      4000
-    );
+    const interval = setInterval(() => setIndex(i => (i + 1) % slides.length), 4000);
     return () => clearInterval(interval);
   }, []);
 
   useEffect(() => {
     const check = () => setShowMask((window.innerWidth || 0) >= 768);
-    // initialize and listen for resizes
     check();
     window.addEventListener('resize', check);
     return () => window.removeEventListener('resize', check);
   }, []);
+
+  // TypeScript-safe slide reference
+  const slide = slides[index]!;
+
   return (
     <div className="relative w-screen min-h-[calc(100vh-5rem)] flex flex-col items-center justify-center text-center text-blue-900 font-figtree overflow-hidden py-6 md:py-20 space-y-5 md:space-y-7">
       {/* Foreground content */}
@@ -107,20 +108,21 @@ const Hero = () => {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.3 }}
         viewport={{ once: true }}
-      ><span>Whether you're </span>
+      >
+        <span>Whether you're </span>
         <span
           className="relative inline-flex h-[2em] items-center justify-center overflow-hidden bg-white/20 border border-white/40 backdrop-blur-md shadow-lg rounded-md px-4 mx-1"
         >
           <AnimatePresence mode="wait">
             <motion.span
-              key={slides[index].text}
+              key={slide.text}
               initial={{ y: '100%', opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: '-100%', opacity: 0 }}
               transition={{ duration: 0.5 }}
               className="block w-full text-center"
             >
-              {slides[index].text}
+              {slide.text}
             </motion.span>
           </AnimatePresence>
         </span>
@@ -129,32 +131,32 @@ const Hero = () => {
 
       <AnimatePresence mode="wait">
         <motion.img
-          key={slides[index].img}
-          src={slides[index].img}
-          alt={slides[index].alt}
-          initial={{ scale: 0.9, opacity: 0, rotate: slides[index].initialRot }}
-          animate={{ scale: 1, opacity: 0.27, rotate: slides[index].finalRot }}
-          exit={{ scale: 0.9, opacity: 0, rotate: slides[index].initialRot }}
-          transition={{ duration: 0.5 }}
+          key={slide.img}
+          src={slide.img}
+          alt={slide.alt}
+          initial={{ scale: 0.9, opacity: 0, rotate: slide.initialRot }}
+          animate={{ scale: 1, opacity: 0.27, rotate: slide.finalRot }}
+          exit={{ scale: 0.9, opacity: 0, rotate: slide.initialRot }}
           style={
             showMask
               ? {
-                WebkitMaskImage:
-                  (slides[index].side == "right")
-                    ? 'radial-gradient(circle at 50vw 50vh, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 35%, rgba(0,0,0,0) 70%)'
-                    : 'radial-gradient(circle at 0vw 50vh, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 35%, rgba(0,0,0,0) 70%)',
-                maskImage:
-                  (slides[index].side == "right")
-                    ? 'radial-gradient(circle at 50vw 50vh, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 35%, rgba(0,0,0,0) 70%)'
-                    : 'radial-gradient(circle at 0vw 50vh, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 35%, rgba(0,0,0,0) 70%)',
-                WebkitMaskRepeat: 'no-repeat',
-                maskRepeat: 'no-repeat',
-              }
+                  WebkitMaskImage:
+                    slide.side === "right"
+                      ? 'radial-gradient(circle at 50vw 50vh, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 35%, rgba(0,0,0,0) 70%)'
+                      : 'radial-gradient(circle at 0vw 50vh, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 35%, rgba(0,0,0,0) 70%)',
+                  maskImage:
+                    slide.side === "right"
+                      ? 'radial-gradient(circle at 50vw 50vh, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 35%, rgba(0,0,0,0) 70%)'
+                      : 'radial-gradient(circle at 0vw 50vh, rgba(0,0,0,1) 0%, rgba(0,0,0,0.6) 35%, rgba(0,0,0,0) 70%)',
+                  WebkitMaskRepeat: 'no-repeat',
+                  maskRepeat: 'no-repeat',
+                }
               : {}
           }
-          className={"absolute " + slides[index].pos + " z-0 w-[600px] h-auto"}
+          className={"absolute " + slide.pos + " z-0 w-[600px] h-auto"}
         />
       </AnimatePresence>
+
       <motion.div
         className="relative z-10 flex items-center space-x-2 mt-4 md:mt-6"
         initial={{ opacity: 0, y: 20 }}

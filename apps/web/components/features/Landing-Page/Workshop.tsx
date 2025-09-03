@@ -1,5 +1,5 @@
 import React from 'react'
-import { motion } from 'motion/react'
+import { motion } from 'motion/react';
 import Header from './Header'
 import { WorkshopCard } from './WorkshopCard'
 
