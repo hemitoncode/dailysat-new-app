@@ -197,7 +197,7 @@ export default function LessonsPage() {
     }));
 
     if (currentInTopicIndex + 1 < nextSubtopics.length) {
-      handleSubtopicClick(nextSubtopics[currentInTopicIndex + 1].subtopic);
+      handleSubtopicClick(nextSubtopics[currentInTopicIndex + 1]?.subtopic || "");
     } else {
       setSelectedTopic(null);
     }

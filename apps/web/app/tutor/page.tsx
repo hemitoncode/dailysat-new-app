@@ -69,22 +69,22 @@ const Tutor = () => {
     {
       title: "Flexible Schedule",
       description: "Set your own hours and work when it's convenient for you.",
-      icon: <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600">📅</div>
+      icon: () => <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600">📅</div>
     },
     {
       title: "Virtual Classroom",
       description: "Teach from anywhere with our easy-to-use online platform.",
-      icon: <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600">💻</div>
+      icon: () => <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600">💻</div>
     },
     {
       title: "Set Your Rates",
       description: "You decide how much to charge between $20-$80 per hour.",
-      icon: <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600">💵</div>
+      icon: () => <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600">💵</div>
     },
     {
       title: "Growing Platform",
       description: "Connect with thousands of students looking for SAT help daily.",
-      icon: <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600">📈</div>
+      icon: () => <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-100 text-blue-600">📈</div>
     }
   ];
 
@@ -158,7 +158,7 @@ const Tutor = () => {
               {benefits.map((benefit, index) => (
                 <div key={index} className="group relative">
                   <div className="flex items-center mb-4">
-                    {benefit.icon}
+                    <benefit.icon />
                     <h3 className="ml-3 text-xl font-medium text-gray-900">{benefit.title}</h3>
                   </div>
                   <p className="text-base text-gray-500">{benefit.description}</p>
