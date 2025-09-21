@@ -7,7 +7,7 @@ import {
   useScroll,
   useTransform,
   AnimatePresence,
-} from "framer-motion";
+} from "motion/react";
 import { cn } from "@/lib/utils";
 import { menuItems } from "@/data/common/navbar";
 import { determineAuthStatus } from "@/lib/auth/authStatus";

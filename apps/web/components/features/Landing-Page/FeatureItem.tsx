@@ -1,7 +1,7 @@
 "use client";
 
 import { Badge } from "@/components/common/Badge";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Feature } from "@/types/landing-page/feature";
 
 const FeatureItem: React.FC<Feature> = ({
